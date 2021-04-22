@@ -1,0 +1,104 @@
+// variables ==============================>
+// Color
+$pc : #2ca01c;
+$sc : #2a3f4c;
+$wc : #f9f9f9;
+$gc : gray;
+
+// Transition
+$ts: all linear .2s;
+
+// box-shadow
+$bs: 0 2px 15px rgba(0, 0, 0, 0.175);
+
+// Mixin ==================================>
+// Flex-box
+@mixin f-box($ai: flex-start, $jc: flex-start, $fw: nowrap, $fd: row) {
+    display: flex;
+    align-items: $ai;
+    justify-content: $jc;
+    flex-wrap: $fw;
+    flex-direction: $fd;
+}
+
+// Start style ========================>
+.full-wrapper{
+    min-height: 100vh;
+    @include f-box($ai: center,);
+    .wrapper{
+        background-color: $wc;
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        padding-bottom: 20px;
+        border-top: 5px solid $pc;
+        border-radius: 5px;
+        box-shadow: $bs;
+        @media screen and (max-width: 600px){
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+            border-radius: 0;
+        }
+        .alert-danger{
+            border-radius: 0;
+            border: none;
+            color: #ff0000;
+        }
+        .logo{
+            margin-top: 40px;
+            width: 190px;
+        }
+        h2{
+            margin-top: 10px;
+            color: $sc;
+        }
+        form{
+            padding: 20px;
+            input[type="password"]{
+                position: relative;
+            }
+            .pass-eye{
+                color: $sc;
+                border: none;
+                background-color: transparent;
+                position: absolute;
+                right: 10px;
+                top: 7px;
+                z-index: 9;
+            }
+            .input-group{
+                margin-bottom: 20px;
+                .form-control, .input-group-text{
+                    border-radius: 0;
+                }
+            }
+            .form-check{
+                text-align: left;
+                input, label{
+                    cursor: pointer;
+                }
+            }
+            .signin-btn{
+                background-color: $pc;
+                color: $wc;
+                width: 100%;
+                display: block;
+                border-radius: 2px;
+            }
+        }
+        .footer{
+            border-top: 1px solid $sc;
+            right: 0;
+            left: 0;
+            margin-top: 20px;
+            padding-top: 10px;
+            p{
+                margin: 0;
+                font-size: 14px;
+            }
+
+        }
+    }
+}
+

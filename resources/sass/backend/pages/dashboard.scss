@@ -1,0 +1,77 @@
+// variables ==============================>
+// Color
+$pc : #007cc0;
+$sc : #2a3f4c;
+$wc : #ffffff;
+$gc : gray;
+
+// Transition
+$ts: all linear .2s;
+
+// box-shadow
+$bs: 0 2px 15px rgba(0, 0, 0, 0.175);
+
+// Mixin ==================================>
+// Flex-box
+@mixin f-box($ai: flex-start, $jc: flex-start, $fw: nowrap, $fd: row) {
+    display: flex;
+    align-items: $ai;
+    justify-content: $jc;
+    flex-wrap: $fw;
+    flex-direction: $fd;
+}
+
+
+
+// style ===============================>
+.dashboard{
+    .content-box{
+        width: 100%;
+        padding-top: 10px;
+        transition: $ts;
+        border: 1px solid rgba(128, 128, 128, 0.514);
+        box-shadow: $bs;
+        border-radius: 3px;
+        &:hover{
+            opacity: .9;
+        }
+        .content{
+            padding: 0 20px;
+            @include f-box($ai: center);
+            i{
+                font-size: 60px;
+                opacity: 0.7;
+                margin-right: 10px;
+            }
+            small{
+
+                font-size: 11px;
+            }
+        }
+    }
+    .statistics-wrapper{
+        .card{
+            .card-header{
+                text-align: right;
+                @include f-box($jc: space-between, $ai: center);
+                i{
+                    font-size: 40px;
+                    color: $sc;
+                }
+                p{
+                    color: $gc;
+                    margin-bottom: 0;
+                    font-size: 13px;
+                }
+                h3{
+                    font-weight: 300;
+                }
+            }
+            .footer{
+                padding: 5px 10px;
+                font-size: 13px;
+                color: $gc;
+            }
+        }
+    }
+}
