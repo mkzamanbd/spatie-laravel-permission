@@ -18,7 +18,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th class="text-right">Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -27,7 +27,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>{{ $role->description }}</td>
-                                    <td class="text-right">
+                                    <td class="text-center">
                                         <a href="{{ route('role.show', $role->id) }}" title="Show role permissions" class="btn btn-success btn-sm">
                                             <i class="bi bi-eye"></i>
                                         </a>

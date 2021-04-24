@@ -11,7 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-    require('select2');
+    require('alpinejs');
+
 } catch (e) {}
 
 /**

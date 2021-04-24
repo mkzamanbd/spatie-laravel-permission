@@ -40,21 +40,60 @@
                                 <div class="col-12 mb-3">
                                     <div class="row row-cols-1 row-cols-md-4 g-2">
                                         @forelse($menus as $menu)
-                                            <div class="col">
+                                            <div class="col" x-data="{
+                                                    isAllChecked: false
+                                                }"
+                                                 x-init="() => {
+                                                    let checked = true
+                                                    const children = $refs.permissions.children
+
+                                                    for(let i = 0; i < children.length; i++){
+                                                         if(! children[i].firstChild.checked){
+                                                            checked = false;
+                                                            break;
+                                                         }
+                                                    }
+                                                    isAllChecked = checked
+                                                 }"
+                                            >
                                                 <div class="card h-100">
                                                     <div class="card-header d-flex justify-content-between">
                                                         <span>
-                                                            <label for="menu-{{ $menu->id }}">{{ $menu->name }}</label></span>
+                                                            <label for="menu-{{ $menu->id }}">{{ $menu->name }}</label>
+                                                        </span>
                                                         <span>
-                                                            <input type="checkbox" id="menu-{{ $menu->id }}" class="form-check-input" onclick="selectItem({{ $menu->id }})">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   id="menu-{{ $menu->id }}"
+                                                                   x-ref="selectAllPermissions"
+                                                                   x-on:click="
+                                                                       const children = event.target.parentElement.parentElement.nextElementSibling.children;
+                                                                       for(let i = 0; i < children.length; i++){
+                                                                         children[i].children[0].checked = event.target.checked
+                                                                       }
+                                                                   "
+                                                                   x-bind:checked="isAllChecked"
+                                                            >
                                                         </span>
                                                     </div>
-                                                    <div class="card-body">
+                                                    <div class="card-body" x-ref="permissions">
                                                         @foreach($permissions as $permission)
                                                             @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $menu->slug)
                                                             <div class="form-check">
                                                                 <input type="checkbox" name="permissions[]"
-                                                                       class="form-check-input select-item-{{ $menu->id }}"
+                                                                       x-on:click="
+                                                                           let allChecked = true
+                                                                           const allPermissions = event.target.parentElement.parentElement.children
+                                                                           for(let i = 0; i < allPermissions.length; i++){
+                                                                               const checkbox = allPermissions[i].children[0]
+                                                                               if(!checkbox.checked){
+                                                                                    allChecked = false
+                                                                                    break
+                                                                               }
+                                                                           }
+                                                                           $refs.selectAllPermissions.checked = allChecked
+                                                                       "
+                                                                       class="form-check-input"
                                                                        value="{{ $permission->id }}"
                                                                        id="permission-{{ $permission->id }}"
                                                                     {!! in_array($permission->id, $role->permissions->pluck('id')->all()) ? 'checked' : '' !!}
@@ -92,14 +131,3 @@
         </div>
     </div>
 @endsection
-@push('script')
-    <script>
-        function selectItem(id){
-            let selectItem = document.querySelectorAll(".select-item-"+id)
-            selectItem.forEach((item) =>{
-                console.log(item.checked === false? 'False': 'True')
-                item.checked === false ? item.checked = true : item.checked = false
-            })
-        }
-    </script>
-@endpush
