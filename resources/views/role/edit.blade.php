@@ -40,21 +40,19 @@
                                 <div class="col-12 mb-3">
                                     <div class="row row-cols-1 row-cols-md-4 g-2">
                                         @forelse($menus as $menu)
-                                            <div class="col" x-data="{
-                                                    isAllChecked: false
-                                                }"
+                                            <div class="col" x-data="{ isAllChecked: false }"
                                                  x-init="() => {
                                                     let checked = true
                                                     const children = $refs.permissions.children
 
                                                     for(let i = 0; i < children.length; i++){
-                                                         if(! children[i].firstChild.checked){
+                                                         if(! children[i].firstChild.nextSibling.checked){
                                                             checked = false;
                                                             break;
                                                          }
                                                     }
                                                     isAllChecked = checked
-                                                 }"
+                                                }"
                                             >
                                                 <div class="card h-100">
                                                     <div class="card-header d-flex justify-content-between">
@@ -62,9 +60,7 @@
                                                             <label for="menu-{{ $menu->id }}">{{ $menu->name }}</label>
                                                         </span>
                                                         <span>
-                                                            <input type="checkbox"
-                                                                   class="form-check-input"
-                                                                   id="menu-{{ $menu->id }}"
+                                                            <input type="checkbox" class="form-check-input" id="menu-{{ $menu->id }}"
                                                                    x-ref="selectAllPermissions"
                                                                    x-on:click="
                                                                        const children = event.target.parentElement.parentElement.nextElementSibling.children;
